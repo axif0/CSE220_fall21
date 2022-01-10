@@ -1,0 +1,13 @@
+def reverse(message,key,i=0):
+    if i==len(message):
+        return
+    else:
+        sum=ord(message[i])+key
+        if sum>90:
+            sum=65+(sum-(90+1))
+        reverse(message,key,i+1)
+        print(str(chr(sum)),end="")
+
+reverse("AXZ",8)
+
+

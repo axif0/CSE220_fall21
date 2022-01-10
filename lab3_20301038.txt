@@ -1,0 +1,157 @@
+# ==========task 1=================
+class Node:
+    def __init__(self, e, n, p):
+        self.elem = e
+        self.next = n
+        self.prev = p
+
+
+class DoublyList:
+    # =============== TASK 2.1 ==================
+    def __init__(self, a):
+        self.head = Node(None, None, None)
+        self.head.prev = self.head
+        self.head.next = self.head
+        DoublyLt = self.head
+        for i in a:
+            new_node = Node(i, None, None)
+            if self.head.next == self.head:
+                self.head.next = new_node
+                new_node.prev = self.head
+            else:
+                DoublyLt.next = new_node
+                new_node.prev = DoublyLt
+            DoublyLt = new_node
+        DoublyLt.next = self.head
+        self.head.prev = DoublyLt
+
+    # ==================== task 2.2, 2.3========
+    def showList(self):
+        if self.head.next.elem == None:
+            print("Empty list")
+        else:
+            point = self.head.next
+            while point != self.head:
+                print(point.elem, end=" ")
+                point = point.next
+            print("\n")
+
+    def count(self):
+        count = 1
+        point = self.head.next
+        while point != self.head:
+            count += 1
+            point = point.next
+        return count
+
+    def insert(self, element, index=None):
+        new_node = Node(element, None, None)
+        emni = self.head.next
+        tree = 0
+        while emni != self.head:
+            if emni.elem == element:
+                tree += 1
+                print("Key", element, "already exists")
+                return
+            emni = emni.next
+        if index is not None:
+            if -1 > index - self.count() > 1:
+                tree += 1
+                raise IndexError
+        if tree == 0:
+            if index == None:
+                temp = self.head.prev
+                self.head.prev = new_node
+                new_node.next = self.head
+                new_node.prev = temp
+                temp.next = new_node
+            if index == 0:
+                temp = self.head.next
+                self.head.next = new_node
+                new_node.prev = self.head
+                new_node.next = temp
+            else:
+                possi = 1
+                point = self.head.next
+                while point != self.head:
+                    if possi == index:
+                        temp = point.next
+                        point.next = new_node
+                        new_node.prev = point
+                        new_node.next = temp
+                    point = point.next
+                    possi += 1
+
+    def remove(self, element):
+        point = self.head.next
+        while point != self.head:
+            if point.elem == element:
+                break
+            point = point.next
+        if point == self.head:
+            print("Key", element, "does not exists")
+        else:
+            p = point.prev
+            q = point.next
+            p.next = q
+            q.prev = p
+            # point.next = point.prev = point.elem =None
+
+    def removeKey(self, deletekey):
+        if deletekey > self.count():
+            raise IndexError
+        point = self.head.next
+        count = 0
+        ans = 0
+        while point != self.head:
+            if count == deletekey:
+                p = point.prev
+                q = point.next
+                p.next = q
+                q.prev = p
+                ans = point.elem
+            count += 1
+            point = point.next
+        print("Deleted key is", ans)
+
+
+# ==========================Tester Code==========================#
+c = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 120]
+l3 = DoublyList(c)
+l3.showList()
+
+print("\n//=======Task 2.3, 2.4 -- Insert=======//")
+c = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+l3 = DoublyList(c)
+l3.showList()  # Should print: 10->20->30->40->50->60->70->80->90
+l3.insert(100)
+l3.showList()  # Should print: 10->20->30->40->50->60->70->80->90->100
+l3.insert(0, 0)
+l3.showList()  # Should print: 0->10->20->30->40->50->60->70->80->90->100
+l3.insert(110, 5)
+l3.showList()  # Should print: 0->10->20->30->40->110->50->60->70->80->90->100
+l3.insert(120, 12)
+l3.showList()  # Should print: 0->10->20->30->40->110->50->60->70->80->90->100->120
+l3.insert(50)  # Should print: Key 50 already exists
+
+# Task-2.7 -- Remove
+print("\n//=======Task 2.5 -- Remove=======//")
+l3.showList()  # Should print: 0->10->20->30->40->110->50->60->70->80->90->100->120
+l3.remove(0)
+l3.showList()  # Should print: 10->20->30->40->110->50->60->70->80->90->100->120
+l3.remove(110)
+l3.showList()  # Should print: 10->20->30->40->50->60->70->80->90->100->120
+l3.remove(120)
+l3.showList()  # Should print: 10->20->30->40->50->60->70->80->90->100
+l3.remove(120)  # Should print: Key 120 does not exist
+#
+# Task-2.6---------- -- Removekey
+print("\n//=======Task 2.6- Removekey=======//")
+l3.removeKey(0)
+l3.showList()
+l3.removeKey(6)
+l3.showList()
+l3.removeKey(7)
+l3.showList()
+l3.removeKey(1)
+l3.showList()

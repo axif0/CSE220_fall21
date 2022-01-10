@@ -1,0 +1,257 @@
+ID: 20301038
+Section: 11
+FALL21
+-----------------------
+Linear Arrays
+-----------------------
+1.Shift Left k Cells   
+-----------------------
+def shiftLeft(a,k):
+    i=0
+    t=k
+    while(k != 0):
+        a[i]=a[i+t]
+        a[i+t]=0
+        k-=1
+        i+=1
+
+source=[10,20,30,40,50,60]
+shiftLeft(source,3)
+print(source)
+-----------------------
+2. Rotate Left k cells 
+-----------------------
+def rotateLeft(a,k):
+    i=0
+    t=k
+    while(k != 0):
+        point=a[i]
+        a[i]=a[i+t]
+        a[i+t]=point
+        k-=1
+        i+=1
+
+source=[10,20,30,40,50,60]
+rotateLeft(source,3)
+print(source)
+-----------------------
+3. Remove an element from an array
+-----------------------
+def remove(source,size,idx):
+    i=idx-1
+    while(i!=size):
+        source[i]=source[i+1]
+        i+=1
+
+source=[10,20,30,40,50,0,0]
+remove(source,5,3)
+print(source)
+-----------------------
+4. Remove all occurrences of a particular element from an array
+-----------------------
+def removeAll(source,size,element):
+    count = []
+    for i in range(len(source)):
+            if source[i]==element:
+                 source[i]=0
+                 count.append(i)
+
+    for i in range(len(count)):
+        for j in range(size):
+            if source[j]==0:
+                temp=source[j]
+                source[j]=source[j+1]
+                source[j+1]=temp
+    print(source)
+
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+-----------------------
+5. Splitting an Array
+-----------------------
+arr=[1, 1, 1, 2, 1]
+ans=False
+i=0
+left=0
+right=0
+while(i<len(arr)):
+    if i<len(arr)//2:
+        left+=arr[i]
+    elif i>=len(arr)//2:
+        right+=arr[i]
+    i+=1
+if left==right or (left+arr[len(arr)//2])==(right-arr[len(arr)//2]):
+    ans=True
+print(ans)
+-----------------------
+6. Array series
+-----------------------
+def parameter(n):
+    d={}
+    while(n!=0):
+        for i in range (1,n+1):
+            d[i]=[0]*n
+            for j in range(1,i+1):
+                d[i][len(d[i])-j]=j
+        print(d)
+        d={}
+        n-=1
+n=int(input())
+parameter(n)
+-----------------------
+7. Max Bunch Count
+-----------------------
+def Max_Bunch(a):
+    count=0
+    temp=1
+    limit=len(a)-1
+    while(limit!=0):
+        if a[limit]==a[limit-1]:
+            temp+=1
+        elif a[limit] !=a[limit-1]:
+            if count<temp:
+                count=temp
+                temp=1
+        limit-=1
+    print(count)
+input=[1, 2, 2, 3, 4, 4, 4]
+Max_Bunch(input)
+-----------------------
+8. Repetition
+-----------------------
+def parameter(input):
+    i=0
+    clone={}
+    while(i<len(input)):
+        if input[i] not in clone:
+            for j in range(i,len(input)):
+                if input[i]==input[j]:
+                    if input[i] in clone:
+                        clone[input[j]].append(input[j])
+                    else:
+                        clone[input[j]] = [input[j]]
+        i+=1
+    same=[]
+    ans=False
+    for k,j in clone.items():
+        if len(j) in same:
+            ans=(True)
+            break
+        elif len(j)!=1:
+            same.append(len(j))
+    print(ans)
+input=[3,4,6,3,4,7,4,6,8,6,6]
+parameter(input)
+-----------------------
+Circular Array
+-----------------------
+1. Palindrome
+-----------------------
+def circular_array(method, start, size):
+    i = 0
+    last = (size + start) % len(method) - 1
+    index = start
+    count = (size) // 2
+    while (i != size // 2):
+        if method[index] == method[last]:
+            count -= 1
+        index = (index + 1) % (len(array))
+        last -= 1
+        i += 1
+    if count==0:
+        print(True)
+    else:
+        print(False)
+array = [20,10,0,0,0,10,20,30]
+circular_array(array, 5, 5)
+-----------------------
+2. Intersection
+-----------------------
+def intersection(circular1,circular2,start1,size1,start2,size2):
+    i=0
+    index=start1
+    x=[]
+    while(i<size1):
+        if circular1[index] in circular2:
+            x.append(circular1[index])
+        index=(index+1)%len(circular1)
+        i+=1
+    print(x)
+a=[40,50,0,0,0,10,20,30]
+b=[10,20,5,0,0,0,0,0,5,40,15,25]
+intersection(a,b,5,5,8,7)
+-----------------------
+3.
+-----------------------
+arra=[1,2,3,4,5, 6, 7]
+while (len(arra)!= 1):
+     import random
+     x = random.randint(0, 3)
+     if x == 1:
+        new_arra = [0] * (len(arra) - 1)
+        index=(len(arra)//2)+1
+        for i in range(1,len(arra)):
+            if index<len(arra)//2:
+                new_arra[index]=arra[index]
+            elif len(arra)==2:
+                new_arra[index-2]=arra[index-1]
+            else:
+                new_arra[index-1] = arra[index]
+            index=(index+1) %(len(arra))
+        arra=new_arra
+        print(arra)
+     elif x==2 or x==3 or x==0 :
+        array=[0]*len(arra)
+        for i in range(len(arra)):
+            array[i]=arra[i-1]
+        arra=array
+
+
+
+
+
+==========================THE END=======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+'''
+Md Asiful Alam
+Id: 20301038
+section 11
+'''
+
+
+openbrackets = "[{("
+closebrackets = ")}]"
+bracates = "[{()}]"
+the_end=["[]","{}","()"]
+class array_based:
+    def __init__(self, example):
+        self.example = example
+        self.stack,self.index = self.mylist(example)
+        self.inx=0
+    def mylist(self, x):
+        count = 0
+        for i in x:
+            if i in bracates:
+                count += 1
+        tree = [0] * count
+        tree2 = [0] * count
+        return tree,tree2
+    def push(self, index,x):
+        self.stack[self.inx]=x
+        self.index[self.inx]=index+1
+        self.inx+=1
+    def pop(self):
+        self.inx -= 1
+        self.stack[self.inx]=0
+        self.index[self.inx]=0
+    def peek(self):
+        return self.stack[self.inx - 1]
+    def isempty(self):
+        return self.stack[0]
+    def check(self, task):
+        ans=True
+        for i in range (len(task)):
+            if task[i] in openbrackets:
+                self.push(i,task[i])
+            peek = self.peek()
+            if peek!=0 :
+                if task[i] in closebrackets:
+                    if peek+task[i] in the_end:
+                        self.pop()
+                    elif self.isempty():
+                        ans=False
+                        print("This expression is NOT correct.")
+                        print(f'Error at character # {self.index[self.inx-1]}. \'{peek}\'-not closed.')
+                        return
+            elif peek==0 and task[i] in closebrackets:
+                print("This expression is NOT correct.")
+                print(f'Error at character # {i+1}. \'{task[i]}\'-not opened.')
+                return
+        if ans==True:
+            print("This expression is correct.")
+
+
+
+example1 = "1+2*(3/4)"
+example2 = "1+2*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14"
+example3 = "1+2*[3*3+{4–5(6(7/8/9)+10)}–11+(12*8)/{13+13}]+14"
+example4 = "1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14"
+l1 = array_based(example1)
+l2 = array_based(example2)
+l3 = array_based(example3)
+l4 = array_based(example4)
+l1.check(example1)
+l2.check(example2)
+l3.check(example3)
+l4.check(example4)
+print('\n')
+#=====================================================================================
+
+class Node:
+    def __init__(self, elem=None, next=None):
+        self.elem = elem
+        self.next = next
+class linked_list:
+    def __init__(self):
+        self.head=None
+    def peek(self):
+        return self.head
+    def push(self, key, x):
+        newNode=Node([key,x])
+        if self.head:
+            temp=self.head
+            self.head=newNode
+            newNode.next=temp
+        else:
+            self.head=newNode
+    def pop(self):
+        if self.head==None:
+            return "This expression is NOT correct"
+        else:
+            self.head=self.head.next
+def check(task):
+    list=linked_list()
+    ans = True
+    for i in range(len(task)):
+        if task[i] in openbrackets:
+            list.push(i,task[i])
+        peek = (list.peek())
+        if peek!=None:
+            if task[i] in closebrackets:
+                if peek.elem[1]+task[i] in the_end:
+                    list.pop()
+                else:
+                    ans = False
+                    print("This expression is NOT correct.")
+                    print(f'Error at character # {peek.elem[0]+1}. \'{peek.elem[1]}\'-not closed.')
+                    return
+        elif peek == None and task[i] in closebrackets:
+            print("This expression is NOT correct.")
+            print(f'Error at character # {i + 1}. \'{task[i]}\'-not opened.')
+            return
+    if ans == True:
+        print("This expression is correct.")
+
+
+check(example1)
+check(example2)
+check(example3)
+check(example4)

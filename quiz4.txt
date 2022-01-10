@@ -1,0 +1,28 @@
+def hash(arr):
+    aux = [0] * 18
+    id = 6 +2
+    for i in range(len(arr)):
+        hash_function_total = arr[i] % id
+        # print(hash_function_total, end=" ")
+
+        if hash_function_total < 10:
+            hash_function_total += 8
+        else:
+            hash_function_total -= 2
+        print(hash_function_total,end=" ")
+
+        if aux[hash_function_total] != 0:
+            if hash_function_total > len(aux):
+                hash_function_total = hash_function_total % len(aux)
+
+            while aux[hash_function_total] != 0:
+                hash_function_total += 1
+
+        aux[hash_function_total] = arr[i]
+
+    print()
+    print(aux)
+
+
+arr = [35, 18, 8, 13, 11, 49, 16, 27]
+hash(arr)

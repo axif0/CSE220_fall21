@@ -1,0 +1,92 @@
+arr = [64, 34, 25, 12, 22,]
+
+
+def bubbleSort(head, i, j):
+    if i > 0: # 4> 0
+        if j < i:                # 0 < 4
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+            bubbleSort(head, i, j + 1)
+        bubbleSort(head, i - 1, 0)
+
+bubbleSort(arr, len(arr) - 1, 0)
+#                  4    ,   0
+print(arr)
+
+=================================================================================
+
+def linked_bubbleSort(head, i, j):
+    if head == None:
+        return 0
+    else:
+        if i > 0:
+            if j < i:
+                if head.elem > head.next.elem:
+                    head.elem, head.next.elem = head.next.elem, head.elem
+                linked_bubbleSort(head, i, j + 1)
+        linked_bubbleSort(head.next, i -1, 0)
+linked_bubbleSort(head, length - 1, 0)
+
+==================================================================================
+
+def array(a, i, j):
+    n=len(a)
+    if i < n-1:
+        min = i
+        if j<n:
+            if a[j] < a[min]:
+                min = j
+            array(a,i,j+1)
+        if min != i:
+            temp = a[i]
+            a[i] = a[min]
+            a[min] = temp
+        array(a, i + 1, i + 2)
+
+
+a = [9, 8, 3, 10, -5]
+array(a, 0, 1)
+print(a)
+
+=================================================
+class Node:
+    def __init__(self, e, n, p):
+        self.elem = e
+        self.next = n
+        self.prev = p
+
+
+class DoublyList:
+    # =============== TASK 2.1 ==================
+    def __init__(self, a):
+        self.head = Node(None, None, None)
+        self.head.prev = self.head
+        self.head.next = self.head
+        DoublyLt = self.head
+        for i in a:
+            new_node = Node(i, None, None)
+            if self.head.next == self.head:
+                self.head.next = new_node
+                new_node.prev = self.head
+            else:
+                DoublyLt.next = new_node
+                new_node.prev = DoublyLt
+            DoublyLt = new_node
+        DoublyLt.next = self.head
+        self.head.prev = DoublyLt
+    def showList(self):
+        if self.head.next.elem == None:
+            print("Empty list")
+        else:
+            point = self.head.next
+            while point != self.head:
+                print(point.elem, end=" ")
+                point = point.next
+            print("\n")
+list=[9,3,1,4,9]
+l1=DoublyList(list)
+l1.showList()
+
+
+
+

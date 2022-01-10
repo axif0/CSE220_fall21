@@ -1,0 +1,223 @@
+# ===============================Task 1==============================================================
+
+def selection(a, i, j):
+    if i >len(a):
+        return
+    elif i < len(a)-1:
+        min = i
+        if j<len(a):
+            if a[j] < a[min]:
+                min = j
+            selection(a,i,j+1)
+        if min != i:
+            a[i],a[min]=a[min],a[i]
+        selection(a, i + 1, i + 2)
+
+a = [9, 8, 3, 10, -5]
+selection(a, 0, 1)
+print(a)
+# ===============================Task 2==============================================================
+
+def recursive_insertion(Array, i):
+    if i == len(Array):
+        return 0
+    if i < len(Array):
+        j = i - 1
+        key = Array[i]
+        # if j >= 0 and key < b[j]:
+        while j >= 0 and key < Array[j]:
+            Array[j + 1] = Array[j]
+            # recursive_insertion(b, j - 1)
+            j -= 1
+        Array[j + 1] = key
+        recursive_insertion(Array, i + 1)
+Array = [9, 1, 5, -3, 2]
+recursive_insertion(Array, 1)
+print(Array)
+
+
+# =============================================================================================
+class Node:
+    def __init__(self, e):
+        self.elem = e
+        self.next = None
+
+class LinkedList:
+    def __init__(self, a):
+        self.head = None
+        tail = None
+        for i in a:
+            t = Node(i)
+            if self.head is None:
+                self.head = t
+                tail = t
+            else:
+                tail.next = t
+                tail = t
+list = [19, 34, 25, 12, 22]
+l1 = LinkedList(list)
+head = l1.head
+def linked_list_count(head):
+    if head == None:
+        return 0
+    if head:
+        return 1 + linked_list_count(head.next)
+length = linked_list_count(head)
+
+def showlist(head):
+    if head == None:
+        return ""
+    else:
+        print(head.elem, end=" ")
+        showlist(head.next)
+        return ""
+
+# ===============================Task 3==============================================================
+
+def linked_bubbleSort(head):
+    if head is None:
+        return None
+    else:
+        arra = head
+        while (arra):
+            new_arra = arra.next
+            while (new_arra):
+                if arra.elem > new_arra.elem:
+                    temp = arra.elem
+                    arra.elem = new_arra.elem
+                    new_arra.elem = temp
+                new_arra = new_arra.next
+            arra = arra.next
+
+linked_bubbleSort(head)
+print(showlist(head))
+
+# =========================================Task 4======================================================
+
+def linked_selection(head):
+    first_loop = head
+    while first_loop:
+        min = first_loop
+        second_loop = first_loop.next
+        while second_loop:
+            if second_loop.elem < min.elem:
+                min = second_loop
+            second_loop = second_loop.next
+        if first_loop.elem != min.elem:
+            min.elem, first_loop.elem = first_loop.elem, min.elem
+        first_loop=first_loop.next
+linked_selection(head)
+print(showlist(head))
+
+# =========================================Task 5======================================================
+
+class Node:
+    def __init__(self, e, n, p):
+        self.elem = e
+        self.next = n
+        self.prev = p
+
+
+class DoublyList:
+    # =============== TASK 2.1 ==================
+    def __init__(self, a):
+        self.head = Node(None, None, None)
+        self.head.prev = self.head
+        self.head.next = self.head
+        DoublyLt = self.head
+        for i in a:
+            new_node = Node(i, None, None)
+            if self.head.next == self.head:
+                self.head.next = new_node
+                new_node.prev = self.head
+            else:
+                DoublyLt.next = new_node
+                new_node.prev = DoublyLt
+            DoublyLt = new_node
+        DoublyLt.next = self.head
+        self.head.prev = DoublyLt
+def showList(head):
+    if head.next.elem == None:
+        print("Empty list")
+    else:
+        point = head.next
+        while point != head:
+            print(point.elem, end=" ")
+            point = point.next
+        print("\n")
+def doublylinked_list_count(head):
+    point = head.next
+    cout=0
+    while point != head:
+        cout+=1
+        point = point.next
+    return cout
+Array = [9, 1, 5, -3, 2]
+l1=DoublyList(Array)
+head=l1.head
+doublylinked_list_count(head)
+length=doublylinked_list_count(head)
+
+def recursive_insertion(head):
+    pointer = 0
+    main=head
+    back=None
+    while main!=None:
+        back=main.next
+        while (back != None and back.prev != None and back.elem < back.prev.elem):
+            back,back.prev=back.prev=back
+            back=back.prev
+        main=main.next
+
+
+recursive_insertion(head)
+
+showList(head)
+
+
+# =========================================Task 6======================================================
+
+
+def binary_search(A, left, right, x=0):
+    if left > right:
+        return 0
+    mid_value = (left + right) // 2
+    if x == A[mid_value]:
+        return mid_value
+    elif x < A[mid_value]:
+        return binary_search(A, left, mid_value - 1, x)
+    else:
+        return binary_search(A, mid_value + 1, right, x)
+
+
+a = [1, 2, 3, 4, 5, 6, 7]
+key = int(input("Enter Key: "))
+Index = binary_search(a, 0, len(a), key)
+print(f'Array = {a}; Element to find = {key}')
+
+if Index != -1:
+    print('Element found at Index', Index)
+else:
+    print('Element does not found in the list')
+
+
+# =========================================Task 7======================================================
+
+Fibonacci = {}
+def fib(n):
+    if n in Fibonacci :
+        return Fibonacci [n]
+    if n == 0 or n==1:
+        val=1
+    else:
+        val = fib(n - 1) + fib(n - 2)
+    Fibonacci [n] = val
+    return val
+f = int(input())
+for i in range(f):
+    if i + 1 == f:
+        print(fib(i),end=" ")
+    else:
+        print(fib(i),end= " ")
+
+

@@ -1,0 +1,36 @@
+def hash(arr):
+    aux = [0] * len(arr)
+    for i in range(len(arr)):
+        sum=0
+        test=arr[i] %100
+        for j in str(test):
+            sum+=int(j)
+        hash_function_total = sum%10
+        # print(hash_function_total)
+        if aux[hash_function_total] != 0:
+            while aux[hash_function_total] != 0:
+                hash_function_total += 1
+                if hash_function_total>=len(aux):
+                    hash_function_total=hash_function_total%(len(arr))
+                # print(hash_function_total)
+        aux[hash_function_total] = arr[i]
+        # print(aux)
+    return aux
+    # print()
+#                 6
+def search(A,Aux,key):
+    index=4
+    count=0
+    l=0
+    while (l!=len(Aux)):
+        if Aux[index]==key:
+            count+=1
+            index+=1
+        if index>len(Aux):
+            index=index%len(Aux)
+        l+=1
+    print(count)
+
+arr = [115,251,277,666,520,159,890,581,219,370]
+A=hash(arr)
+search(arr,A,277)

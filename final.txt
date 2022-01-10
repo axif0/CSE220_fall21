@@ -1,0 +1,21 @@
+1)
+
+def recurtion(x, i=0, count=0, strt=""):
+    if i == len(x):
+        return strt[::-1]
+    else:
+        if 48 <= ord(x[i]) <= 57 and int(x[i]) % 2 != 0:
+            strt+=x[i]
+        return recurtion(x, i + 1, count, strt)
+print(recurtion("Axy3*8g572961"))
+
+
+
+
+3)
+
+pre-order--> SLR
+
+IN- ORDER--> LSR
+
+POST- ORDER--> LRS
